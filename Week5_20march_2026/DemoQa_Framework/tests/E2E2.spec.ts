@@ -1,0 +1,19 @@
+import {test} from "@playwright/test"
+import RegisterUser from "../PageObjectModel/RegisterUser.page"
+import LoginUser from "../PageObjectModel/LoginUser.page";
+import Urls from "../Utilities/Urls.json"
+import ProfilePage from "../PageObjectModel/ProfilePage.page";
+
+test("E2E2",async({page})=>{
+    let Register=new RegisterUser(page);
+    let Login=new LoginUser(page);
+    let Profile=new ProfilePage(page);
+    await page.goto(Urls.mainUrl);
+    await Register.RegisterUser();
+    await Login.LoginUser();
+    await Profile.deleteAddedBooks();
+    await Profile.bookStoreAdd();
+    await Profile.verifyProfileAfterAddingBooks();
+    await Profile.deleteAddedBooks();
+    await Profile.Logout();
+})
